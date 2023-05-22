@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Learning React</title>
+    </head>
+
+    <body>
+        <div id="root">
+            <h1 id="title">Not Rendered</h1>
+        </div>
+        <!-- This is the core library of React -->
+        <script
+            crossorigin
+            src="https://unpkg.com/react@18/umd/react.development.js"
+        ></script>
+
+        <!-- This is the library which will give access to the Document Object Model (DOM) -->
+        <script
+            crossorigin
+            src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+        ></script>
+        <script>
+            // This React comes from the global variable, which comes from our injected react js files
+            const heading = React.createElement(
+                "h1",
+                { id: "header" },
+                "Hi Everyone"
+            );
+            console.log(heading);
+
+            const heading1 = React.createElement(
+                "h2",
+                { id: "title1" },
+                "Heading 1"
+            );
+            const heading2 = React.createElement(
+                "h3",
+                { id: "title2" },
+                "Heading 2"
+            );
+            const container = React.createElement("div", { id: "container" }, [
+                heading,
+                heading1,
+                heading2,
+            ]);
+
+            const root = ReactDOM.createRoot(document.getElementById("root"));
+
+            // Passing react element inside root
+            // render will modify our DOM, it will override root
+            root.render(container);
+        </script>
+    </body>
+</html>
