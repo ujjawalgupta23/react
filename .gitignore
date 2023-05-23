@@ -1,0 +1,5 @@
+# Everything that we can regenerate on our server, can be put inside .gitignore
+
+node_modules/
+.parcel-cache/
+dist/
