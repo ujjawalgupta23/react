@@ -28,40 +28,44 @@ import ReactDOM from "react-dom/client";
  * Tree Shaking - Removing Unwanted Code
  */
 
-// Instead of coding in HTML, we can use React in a particular js file
-
-// This React comes from the global variable, which comes from our injected react js files
-const heading = React.createElement(
-    "h1",
-    { id: "header", key: "h1" },
-    "Hi Everyone"
+// React Element
+const heading = (
+    <h1 id="title" key="h1">
+        From React Element
+    </h1>
 );
-console.log(heading);
 
-/**
- * At the end of the the day React.createElement gives us an object
-   and that object is then converted to HTML code
-   and it is put in the DOM
- */
+const NewHeading = function () {
+    // you have to return
+    return <h1>New Heading from React Component</h1>;
+};
 
-const heading1 = React.createElement(
-    "h2",
-    { id: "title1", key: "h2" },
-    "Heading 1"
+const name = "Ujjawal";
+
+// React Components:-
+// 1. Functional Component
+// - it is a normal function
+// - Name of the Component starts with Capital Letter
+
+// This is a functional component returning JSX
+const HeadingComponent = () => (
+    // with arrow fn. no need to return
+    <div>
+        {heading}
+        <NewHeading />
+        {NewHeading()}
+        <h2>Here is the H2 from Functional Component</h2>
+        <h3>He is the H3</h3>
+
+        {console.log("I can write any piece of JS code inside {}")}
+        {name}
+    </div>
 );
-const heading2 = React.createElement(
-    "h3",
-    { id: "title2", key: "h3" },
-    "Heading 2"
-);
-const container = React.createElement("div", { id: "container" }, [
-    heading,
-    heading1,
-    heading2,
-]);
+
+// If we have a component inside a component, that is called Component/Composing Composition
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 // Passing react element inside root
 // render will modify our DOM, it will override root
-root.render(container);
+root.render(<HeadingComponent />);
