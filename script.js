@@ -1,46 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-
-/**
- * HMR- Hot Module Replacement: 
- *  Parcel is doing this, it keeps track of all the files. 
-    As soon as some change happens, it refreshes the page
- * Parcel uses File Wathcer Algorithm which is writeen in C++
- */
-
-/** Parserl Advantages
- * Creates a Server
- * HMR- Hot Module Replacement
- * File Watcher Algorithm - C++
- * Bundling
- * Minify
- * Cleaning our Code
- * Dev and Production Build
- * Super Fast build Algorithm
- * Image Optimisation
- * Caching while Development
- * Compression
- * Compatible with older version of Browser
- * HTTPS on dev
- * port Number
- * Consistent Hashing Algorithm
- * Zero Config
- * Tree Shaking - Removing Unwanted Code
- */
+import restaurantList from "./data";
 
 // React Element
-const heading = (
-    <h1 id="title" key="h1">
-        From React Element
-    </h1>
+const Title = () => (
+    <a href="/">
+        <img
+            className="logo"
+            src="https://cdn.cp.adobe.io/content/2/dcx/7bfaff9a-958a-4d26-bd10-9ead917802ad/rendition/preview.jpg/version/1/format/jpg/dimension/width/size/1200"
+            alt="logo"
+        />
+    </a>
 );
-
-const NewHeading = function () {
-    // you have to return
-    return <h1>New Heading from React Component</h1>;
-};
-
-const name = "Ujjawal";
 
 // React Components:-
 // 1. Functional Component
@@ -48,24 +19,73 @@ const name = "Ujjawal";
 // - Name of the Component starts with Capital Letter
 
 // This is a functional component returning JSX
-const HeadingComponent = () => (
+const Header = () => (
     // with arrow fn. no need to return
-    <div>
-        {heading}
-        <NewHeading />
-        {NewHeading()}
-        <h2>Here is the H2 from Functional Component</h2>
-        <h3>He is the H3</h3>
-
-        {console.log("I can write any piece of JS code inside {}")}
-        {name}
+    <div className="header">
+        <Title />
+        <div className="nav-items">
+            <ul>
+                <li>Home</li>
+                <li>About Us</li>
+                <li>Contact</li>
+                <li>Cart</li>
+            </ul>
+        </div>
     </div>
 );
 
-// If we have a component inside a component, that is called Component/Composing Composition
+// Config Driven UI
+
+const RestaurantCard = ({ name, cuisines, cloudinaryImageId, avgRating }) => {
+    // console.log(props);
+    // const { name, cuisines, cloudinaryImageId, avgRating } = restaurant.data;
+    return (
+        <div className="card">
+            <img
+                src={`https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/${cloudinaryImageId}`}
+                alt="restaurant card"
+            />
+            <h2>{name}</h2>
+            <h3>{cuisines.join(", ")}</h3>
+            <h4>{avgRating} stars</h4>
+        </div>
+    );
+};
+
+const Body = () => {
+    return (
+        <div className="restaurant-list">
+            {/* <RestaurantCard restaurant={restaurantList[0]} /> */}
+            {
+                /* <RestaurantCard {...restaurantList[0].data} />
+            <RestaurantCard {...restaurantList[1].data} />
+            <RestaurantCard {...restaurantList[2].data} />
+            <RestaurantCard {...restaurantList[3].data} />
+            <RestaurantCard {...restaurantList[4].data} />
+            <RestaurantCard {...restaurantList[5].data} />
+            <RestaurantCard {...restaurantList[6].data} /> */
+                // This has limitations, suppose i don't know no. of restaurants.
+                // Then I have to use map
+            }
+            {restaurantList.map((restaurant) => (
+                <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
+            ))}
+        </div>
+    );
+};
+
+const Footer = () => <h4>Footer</h4>;
+
+const AppLayout = () => {
+    return (
+        <React.Fragment>
+            <Header />
+            <Body />
+            <Footer />
+        </React.Fragment>
+    );
+};
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
-// Passing react element inside root
-// render will modify our DOM, it will override root
-root.render(<HeadingComponent />);
+root.render(<AppLayout />);
