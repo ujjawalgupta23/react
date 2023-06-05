@@ -1,4 +1,8 @@
-const restaurantList = [
+// We put all the hard coded files in the config file
+
+export const IMG_CDN_URL = "https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/"
+
+export const restaurantList = [
     {
         type: "restaurant",
         data: {
@@ -1508,4 +1512,3 @@ const restaurantList = [
     },
 ];
 
-export default restaurantList;
