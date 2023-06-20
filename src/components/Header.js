@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // this is export by name
 export const Title = () => (
     <a href="/">
@@ -9,20 +11,32 @@ export const Title = () => (
     </a>
 );
 
-const Header = () => (
-    // with arrow fn. no need to return
-    <div className="header">
-        <Title />
-        <div className="nav-items">
-            <ul>
-                <li>Home</li>
-                <li>About Us</li>
-                <li>Contact</li>
-                <li>Cart</li>
-            </ul>
-        </div>
-    </div>
-);
+const loggedIn = () => {
+    // Some Authentication
+    return false;
+};
 
+const Header = () => {
+    // with arrow fn. no need to return
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    return (
+        <div className="header">
+            <Title />
+            <div className="nav-items">
+                <ul>
+                    <li>Home</li>
+                    <li>About Us</li>
+                    <li>Contact</li>
+                    <li>Cart</li>
+                </ul>
+            </div>
+            {isLoggedIn ? (
+                <button onClick={() => setIsLoggedIn(false)}>Logout</button>
+            ) : (
+                <button onClick={() => setIsLoggedIn(true)}>Login</button>
+            )}
+        </div>
+    );
+};
 // this is export by default
 export default Header;
