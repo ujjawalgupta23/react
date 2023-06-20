@@ -1,7 +1,7 @@
 import { restaurantList } from "../config";
 import RestaurantCard from "./RestaurantCard";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function filterData(searchText, restaurants) {
     return restaurants.filter((restaurant) =>
@@ -14,6 +14,20 @@ const Body = () => {
     const [searchClicked, setSearchClicked] = useState(false);
 
     const [restaurants, setRestaurant] = useState(restaurantList);
+
+    useEffect(() => {
+        getRestaurants();
+    }, []);
+
+    async function getRestaurants() {
+        const data = await fetch(
+            "https://www.swiggy.com/dapi/restaurants/list/v5?lat=26.8537051&lng=80.9484195&sortBy=RELEVANCE&filters=%7B%22SHOW_RESTAURANTS_WITH%22%3A%5B%22Pure%20Veg%22%5D%7D&page_type=DESKTOP_WEB_LISTING"
+        );
+        const json = await data.json();
+        console.log(json);
+
+        setRestaurant(json?.data?.cards[0]?.data?.data?.cards);
+    }
 
     return (
         <>
